@@ -132,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
+CORS_ORIGIN_ALLOW_ALL = True #本番環境では特定のドメインのみ許可した方が良い
+

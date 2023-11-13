@@ -2,10 +2,14 @@ version: "3.8"
 
 services:
   db:
+    ports:
+      - "5432:5432"
     container_name: django_db
     image: postgres:15
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: twMr6Gp3PLJh
+      POSTGRES_DB: postgres
     volumes:
       - django_data_volume:/var/lib/postgresql/data
   rest_api:

@@ -3,7 +3,7 @@ from django.conf import settings
 from tags.models import Tag
 
 class Post(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_posts')
+    user = models.ForeignKey(settings.ACCOUNTS_MODEL, on_delete=models.CASCADE, related_name='user_posts')
     name = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='posts_images/')

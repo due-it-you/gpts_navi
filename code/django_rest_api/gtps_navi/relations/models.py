@@ -2,8 +2,8 @@ from django.db import models
 from django.conf import settings
 
 class Relation(models.Model):
-    follower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='following')
-    followed = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='followers')
+    follower = models.ForeignKey(settings.ACCOUNTS_MODEL, on_delete=models.CASCADE, related_name='following')
+    followed = models.ForeignKey(settings.ACCOUNTS_MODEL, on_delete=models.CASCADE, related_name='followers')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

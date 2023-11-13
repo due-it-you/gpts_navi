@@ -1,7 +1,8 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 
-class User(models.Model):
+class User(AbstractUser):
     # ここでユーザーとの一対多の関連を定義  
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     name = models.CharField(max_length=20)

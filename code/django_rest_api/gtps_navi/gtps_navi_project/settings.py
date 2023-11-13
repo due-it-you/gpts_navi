@@ -46,6 +46,13 @@ INSTALLED_APPS = [
     'likes',#←追加
     'tags',#←追加
     'relations',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +120,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '713697283482-bp97d12ll8lfv0v5pf7lmu4nh4f5sb5f.apps.googleusercontent.com',
+            'secret': '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',
+        }
+    },
+    'twitter': {
+        'APP': {
+            'client_id': 'Rm16VlU2TWRwTHp1cGNla2VLV0g6MTpjaQ',
+            'secret': '11FHesj92ej5HWnAHjo_KkIP4Mj3MWnlxBTK4yvC3Nhg3Pu-B8'
+        }
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -141,4 +163,6 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','*']
 CORS_ORIGIN_ALLOW_ALL = True #本番環境では特定のドメインのみ許可した方が良い
 
 AUTH_USER_MODEL = 'users.User'
+
+SITE_ID = 1
 

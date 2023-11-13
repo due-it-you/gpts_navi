@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +55,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
     'dj_rest_auth',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'dj_rest_auth.registration',
+    'drf_social_oauth2',
+    'oauth2_provider',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +76,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'gtps_navi_project.urls'
 
+#Reactアプリがポート3000からリクエストを行えるように、以下を追加します。
+CORS_ALLOWED_ORIGINS = [
+   "http://localhost:3000",
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,9 +92,37 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
+]
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+      'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+      'drf_social_oauth2.authentication.SocialAuthentication',
+   ),
+}
+
+AUTHENTICATION_BACKENDS = (
+   # Google OAuth2
+   'social_core.backends.google.GoogleOAuth2',
+   # drf-social-oauth2
+   'drf_social_oauth2.backends.DjangoOAuth2',
+   # Django
+   'django.contrib.auth.backends.ModelBackend',
+)
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+
+# Define SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE to get extra permissions from Google.
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+   'https://www.googleapis.com/auth/userinfo.email',
+   'https://www.googleapis.com/auth/userinfo.profile',
 ]
 
 WSGI_APPLICATION = 'gtps_navi_project.wsgi.application'
@@ -168,6 +206,8 @@ CORS_ORIGIN_ALLOW_ALL = True #本番環境では特定のドメインのみ許�
 AUTH_USER_MODEL = 'users.User'
 
 ACCOUNTS_MODEL = 'accounts.Account'
+
+LOGIN_REDIRECT_URL = 'http://localhost:3000/'
 
 SITE_ID = 1
 

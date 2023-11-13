@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'webapi',#←追加
     'rest_framework',#←追加
     'corsheaders',#←追加
+    'users',#←追加
+    'posts',#←追加
+    'comments',#←追加
+    'likes',#←追加
+    'tags',#←追加
+    'relations',
 ]
 
 MIDDLEWARE = [
@@ -130,7 +136,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','*']
 
 CORS_ORIGIN_ALLOW_ALL = True #本番環境では特定のドメインのみ許可した方が良い
 
